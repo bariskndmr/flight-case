@@ -151,3 +151,25 @@ görmek için filtre değiştirmek ya da uygulamayı yenilemek gerekiyor. Biline
 **Açık riskler**
 - Hydration öncesi favori dokunuşu sessizce yok sayılır (buton zaten disabled). AsyncStorage okuması pratikte ms
   mertebesinde olduğundan kullanıcı fark etmez.
+
+CHECKPOINT 3 (kullanıcı, ~22:45): 1–6 geçti (favori butonu detayı açmıyor, üç ekranda tutarlılık, boş durum, FL024 ve
+bagaj 0/null detayları, Expo Go kapat/aç sonrası favoriler yerinde). 7. adım (Accessibility Inspector) brief'te
+istenmediği için kullanıcı kararıyla atlandı; erişilebilirlik otomatik testlerle doğrulanıyor, ekran okuyucuyla denenmedi.
+
+## Blok 5 — Erişilebilirlik ve gözden geçirme (22:46–22:49)
+
+**Yapılanlar**
+- AGENTS.md §4/§7 taraması (grep): `src/api` dışında `fetch(` yok; `any` / `@ts-ignore` yok; StrictMode yok; liste için
+  istemcide sort/filter yok (tek `.sort(` favoriler ekranında, brief "sıralama serbest" diyor); bagajda falsy kontrol yok;
+  `keyExtractor` her yerde `id`; `ios/` `android/` yok.
+- Sıralama butonlarına sabit `accessibilityLabel` verildi.
+- `FlightListControls.test.tsx`: switch'in erişilebilir adı ve değeri, sıralamanın `selected` durumu ve görünür ✓, onChange değerleri.
+- `app.json` `name`: "Uçuş Keşfi" (Expo Go'da görünen ad).
+
+**Doğrulama**
+- `npm test` → 7 suite, 59/59 · `npx tsc --noEmit` → temiz.
+
+**İlk denemede yanlış / düzeltilen**
+- Sıralama butonlarının erişilebilir adı görünür metinden türüyordu, yani "✓ En düşük fiyat". VoiceOver seçimi hem ✓
+  hem `selected` ile iki kez söylerdi. Sabit etiket verildi; test adı tam eşleşmeyle (`name: 'En düşük fiyat'`) kontrol ediyor.
+- zsh'te tırnaksız `grep --include=*.ts` glob olarak açılıp "no matches found" verdi; tarama tırnaklı desenle tekrarlandı.

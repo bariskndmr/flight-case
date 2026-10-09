@@ -36,6 +36,8 @@ export function FlightListControls({ filters, total, onChange }: Props) {
             <Pressable
               key={option.value}
               accessibilityRole="button"
+              // Plain label: the selection is announced via accessibilityState, not by reading out "✓".
+              accessibilityLabel={option.label}
               accessibilityState={{ selected }}
               onPress={() => {
                 if (!selected) onChange({ ...filters, sort: option.value });

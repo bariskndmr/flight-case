@@ -9,10 +9,10 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
 | 2.1.a | Uygulama liste ekranıyla açılır | Kök navigator Tabs → ilk sekme Flights · CHECKPOINT 1 (manuel) | ✅ |
-| 2.1.b | Kartta havayolu, uçuş no, kalkış/varış kodları, saatler, toplam süre, direkt/aktarmalı, fiyat, favori aksiyonu | `FlightCard` + `FavoriteButton` · CHECKPOINT 2 ✔ (favori hariç), CHECKPOINT 3 | 🟡 |
+| 2.1.b | Kartta havayolu, uçuş no, kalkış/varış kodları, saatler, toplam süre, direkt/aktarmalı, fiyat, favori aksiyonu | `FlightCard` + `FavoriteButton` · CHECKPOINT 2 ✔ (favori hariç), CHECKPOINT 3 ✔ manuel | ✅ |
 | 2.1.c | Toplam sonuç sayısı (`meta.total`) görünür | `FlightListControls` → "{n} uçuş" · CHECKPOINT 2 ✔ manuel | ✅ |
 | 2.1.d | Karta dokununca doğru uçuşun detayı açılır | `navigate('FlightDetail', { flight })` · CHECKPOINT 2 madde 9 ✔ manuel | ✅ |
-| 2.1.e | Favori aksiyonu detay navigasyonunu tetiklemez | `FlightCard.test.tsx › toggles the favorite without opening the detail`; buton Pressable'ın kardeşi · CHECKPOINT 3 | 🟡 |
+| 2.1.e | Favori aksiyonu detay navigasyonunu tetiklemez | `FlightCard.test.tsx › toggles the favorite without opening the detail`; buton Pressable'ın kardeşi · CHECKPOINT 3 ✔ manuel | ✅ |
 
 ## P0 — 2.2 Sayfalama
 
@@ -37,21 +37,21 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
-| 2.4.a | Kart bilgileri + kalkış ve varış tarihi + bagaj | `flightView.test.ts › formats every field…`, `› marks FL024…` · CHECKPOINT 3 | 🟡 |
-| 2.4.b | `baggageKg` 0 → "Bagaj dahil değil", null → "Bagaj bilgisi yok" | `format.test.ts › baggageText …`, `flightView.test.ts › shows missing baggage…` · CHECKPOINT 3 (FL004=0, FL006=null) | 🟡 |
-| 2.4.c | Detayda favori ekle/çıkar | `FavoriteButton` detayda · CHECKPOINT 3 | 🟡 |
+| 2.4.a | Kart bilgileri + kalkış ve varış tarihi + bagaj | `flightView.test.ts › formats every field…`, `› marks FL024…` · CHECKPOINT 3 ✔ manuel | ✅ |
+| 2.4.b | `baggageKg` 0 → "Bagaj dahil değil", null → "Bagaj bilgisi yok" | `format.test.ts › baggageText …`, `flightView.test.ts › shows missing baggage…` · CHECKPOINT 3 (FL004=0, FL006=null) ✔ manuel | ✅ |
+| 2.4.c | Detayda favori ekle/çıkar | `FavoriteButton` detayda · CHECKPOINT 3 ✔ manuel | ✅ |
 | 2.4.d | Listeye dönünce filtre, sıralama, yüklenmiş sayfalar korunur | Liste ekranı stack'te mount kalır, state `useReducer`'da · CHECKPOINT 2 madde 9 ✔ manuel | ✅ |
 
 ## P0 — 2.5 Favoriler
 
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
-| 2.5.a | Ayrı ekranda favoriler; detay açılır, favoriden çıkarılır | `FavoritesScreen` · CHECKPOINT 3 | 🟡 |
-| 2.5.b | Liste, detay, favoriler işaretleri anında tutarlı | Tek store, `FavoriteButton` id ile okur; `FlightCard.test.tsx › toggles…` · CHECKPOINT 3 | 🟡 |
-| 2.5.c | Son favori çıkınca boş durum | `FavoritesScreen` → "Henüz favori uçuşun yok." · CHECKPOINT 3 | 🟡 |
-| 2.5.d | Uygulama tamamen kapatılıp açılınca favoriler korunur | `favoritesStore.test.ts › restores saved favorites… (app restart)` · CHECKPOINT 3 (Expo Go kapat/aç) | 🟡 |
+| 2.5.a | Ayrı ekranda favoriler; detay açılır, favoriden çıkarılır | `FavoritesScreen` · CHECKPOINT 3 ✔ manuel | ✅ |
+| 2.5.b | Liste, detay, favoriler işaretleri anında tutarlı | Tek store, `FavoriteButton` id ile okur; `FlightCard.test.tsx › toggles…` · CHECKPOINT 3 ✔ manuel | ✅ |
+| 2.5.c | Son favori çıkınca boş durum | `FavoritesScreen` → "Henüz favori uçuşun yok." · CHECKPOINT 3 ✔ manuel | ✅ |
+| 2.5.d | Uygulama tamamen kapatılıp açılınca favoriler korunur | `favoritesStore.test.ts › restores saved favorites… (app restart)` · CHECKPOINT 3 (Expo Go kapat/aç) ✔ manuel | ✅ |
 | 2.5.e | Hydration bitmeden boş state depolamaya yazılmaz | `favoritesStore.test.ts › ignores actions before hydration so saved favorites are never overwritten` (mutasyonla doğrulandı) | ✅ |
-| 2.5.f | Favoriler ekranı liste filtresinden bağımsız | `FavoritesScreen` yalnız store'u okur, liste filtresine bağlı değil · CHECKPOINT 3 | 🟡 |
+| 2.5.f | Favoriler ekranı liste filtresinden bağımsız | `FavoritesScreen` yalnız store'u okur, liste filtresine bağlı değil · CHECKPOINT 3 ✔ manuel | ✅ |
 
 ## P0 — 2.6 Yüklenme, boş ve hata durumları
 
@@ -74,11 +74,11 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
-| 5.a | React Native + TypeScript | | ⬜ |
+| 5.a | React Native + TypeScript | Expo SDK 57 / RN 0.86.3 / TypeScript 6 `strict`; `npx tsc --noEmit` temiz | ✅ |
 | 5.b | README'de SDK, RN, Node, paket yöneticisi sürümleri; kilit dosyası | | ⬜ |
-| 5.c | Sorumluluk ayrımı; bileşenlerde HTTP çağrısı yok | | ⬜ |
-| 5.d | Safe area ve geri navigasyon | | ⬜ |
-| 5.e | Favori ve filtre kontrollerinde erişilebilir ad + seçili durum; bilgi yalnız renkle değil | | ⬜ |
+| 5.c | Sorumluluk ayrımı; bileşenlerde HTTP çağrısı yok | `api/` (HTTP) · `domain/` (biçimlendirme) · `features/*` (state + ekran) · `components/` (UI). `grep "fetch(" src` yalnız `src/api/client.ts` | ✅ |
+| 5.d | Safe area ve geri navigasyon | Tab/stack header üst, tab bar alt inset'i karşılar; detayda `useSafeAreaInsets().bottom`. Native-stack geri butonu ve kaydırarak geri · CHECKPOINT 2–3 ✔ manuel | ✅ |
+| 5.e | Favori ve filtre kontrollerinde erişilebilir ad + seçili durum; bilgi yalnız renkle değil | `FlightListControls.test.tsx` (switch adı, sıralama `selected` + ✓), `FlightCard.test.tsx` (favori adı + `selected`, görünür "Favoride") | ✅ |
 
 ## P0 — 7 Teslim (README)
 
