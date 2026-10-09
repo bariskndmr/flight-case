@@ -46,7 +46,8 @@ Manuel olarak kontrol edilenler: varsayılan sıra ve toplam sayı, sayfalamanı
 filtre/sıralama değişiminde başa dönme, race modu, ilk ve sonraki sayfa hatası + "Tekrar dene", iki ayrı boş durum,
 yükleniyor durumu, detaydan dönünce listenin korunması, favori butonunun detayı açmaması, üç ekranda favori
 tutarlılığı, FL024 ve bagajı 0 / null olan uçuşların detayı, Expo Go tamamen kapatılıp açıldıktan sonra favorilerin
-korunması. Ayrıntılı liste ve kanıtlar `docs/ai/CHECKLIST.md`'de.
+korunması. Erişilebilirlik, otomatik testlere ek olarak Xcode Accessibility Inspector ile de kontrol edildi (kart ve
+favori butonu ayrı öğeler). Ayrıntılı liste ve kanıtlar `docs/ai/CHECKLIST.md`'de.
 
 ## 3. Test komutu
 
@@ -192,8 +193,6 @@ WORKLOG'daki blok saatleri (`date` çıktısı). Checkpoint'ler arasındaki sür
 - **Favoriler saklandığı andaki kopya.** Sunucuda fiyat değişirse favoriler ekranı eski değeri gösterir; bkz. Mimari.
 - **Hydration'dan önceki dokunuşlar.** Kayıtlı favoriler okunmadan önce yapılan favori dokunuşu yok sayılıyor (buton
   zaten devre dışı). AsyncStorage okuması milisaniyeler sürdüğü için pratikte fark edilmiyor.
-- **Ekran okuyucuyla deneme yapılmadı.** Erişilebilirlik adları ve durumları otomatik testlerle doğrulandı; VoiceOver ya
-  da Accessibility Inspector ile manuel deneme yapılmadı.
 - **İstanbul saati sabit +3 ofsetle hesaplanıyor.** Türkiye yeniden yaz saatine geçerse `format.ts` güncellenmeli.
 - **Ağ hataları tek mesajda.** Bağlantı hatası, 500 ve diğer hatalar aynı "Uçuşlar yüklenemedi." mesajını gösteriyor;
   ayrıntı yalnız dev log'unda.

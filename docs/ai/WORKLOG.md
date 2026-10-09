@@ -213,3 +213,9 @@ istenmediği için kullanıcı kararıyla atlandı; erişilebilirlik otomatik te
 **Açık riskler**
 - Android denenmedi. `npm audit` jest/expo alt bağımlılıklarında bilinen açıklar raporluyor. Bunlar geliştirme
   araçlarında ve `--force` ile SDK dışı sürümlere geçmek gerekeceği için dokunulmadı.
+
+## Düzeltme — erişilebilirlik kontrolü (22:58)
+
+- CHECKPOINT 3'ün 7. adımı (Accessibility Inspector) başta atlanmıştı ve README'ye "Bilinen eksikler" altında "ekran
+  okuyucuyla deneme yapılmadı" diye yazılmıştı. Kullanıcı sonradan Accessibility Inspector ile kontrol etti.
+- README'de madde "Bilinen eksikler"den çıkarıldı ve §2'deki manuel kontrollere eklendi. CHECKLIST 5.e'ye manuel kanıt eklendi.
