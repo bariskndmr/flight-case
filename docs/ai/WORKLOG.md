@@ -69,3 +69,32 @@ Araç: Claude Code (Opus 5.5), VS Code eklentisi. Saatler `date '+%H:%M'` ile al
 **Açık riskler**
 - RNTL 14'te `render` async (Promise döner). Ekran testinde `await render(...)` kullanılmalı.
 - Uygulamanın Expo Go'da açıldığı henüz doğrulanmadı (CHECKPOINT 1).
+
+## Blok 2 — Liste (21:36–21:40, CHECKPOINT 2 bekleniyor)
+
+**Yapılanlar**
+- Sıra: reducer + testleri → format/flightView + testleri → hook + testleri → arayüz.
+- `flightsReducer.ts`: ilk sayfa için tek `status`, sonraki sayfa için `loadingMore` / `loadMoreError`, `requestId`
+  ile eski yanıtı yok sayma. `FILTERS_CHANGED` state'i sıfırlar (öğeler, sayfa, toplam, sonraki sayfa durumları).
+- `useFlights.ts`: artan `requestId` (ref), tek `AbortController` (yeni istek eskisini iptal eder), `onEndReached`
+  patlamasına karşı senkron `isLoadingMore` ref'i; sonraki sayfa hatası kaydırmayla değil, yalnız "Tekrar dene" ile
+  yeniden denenir. `AbortError` hata olarak dispatch edilmez.
+- **Plandan sapma:** `domain/format.ts` ve `toFlightView` Blok 3'ten öne alındı, çünkü kart biçimlendirilmiş saat ve
+  fiyat gösteriyor. İstanbul saati `Intl` yerine sabit +3 saat ofsetle hesaplanıyor (Türkiye 2016'dan beri yaz saati
+  uygulamıyor). Böylece Hermes'in Intl/timeZone desteğine bağımlılık da yok.
+- Arayüz: `FlightListControls` (Switch, iki sıralama düğmesi ✓ ile, "{n} uçuş"), `FlightCard`, `StateView`,
+  `ListFooter`, `FlightListScreen`. Ekranda tek bir `renderBody` dalı çalışır: yükleniyor / hata / boş (iki tür) / liste.
+  Filtre değişince `status` `loading`'e döner, FlatList unmount olur, yeni sonuç en üstten başlar.
+
+**Doğrulama**
+- `npm test` → 4 suite, 50/50 (`flights`, `flightsReducer`, `format` + `flightView`, `useFlights`).
+- `npx tsc --noEmit` → temiz. `npx expo export --platform ios` → derlendi.
+- Mutasyon kontrolü: reducer'da `PAGE_SUCCEEDED`'deki `requestId` kontrolü silinince 2 race testi düştü. Hook'ta
+  `isLoadingMore.current` koruması silinince "only once" testi düştü. İkisi de geri alındı.
+
+**İlk denemede yanlış / düzeltilen**
+- Seçili sıralama zemini için paletin dışında, koda gömülü bir renk (`#E8F0FB`) yazılmıştı; `colors.accentSoft` olarak `theme.ts`'e taşındı.
+- CHECKLIST'i güncelleyen betiğin regex'i boş hücreyi iki boşluk sanıyordu (tek boşluk); assert ile yakalandı, düzeltildi.
+
+**Açık riskler**
+- Gerçek cihazda/simülatörde `onEndReached` davranışı ve race modu henüz manuel doğrulanmadı (CHECKPOINT 2).
