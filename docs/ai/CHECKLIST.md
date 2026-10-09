@@ -1,0 +1,115 @@
+# CHECKLIST — Brief P0 / P1
+
+Durum: ⬜ bekliyor · 🟡 kısmen · ✅ doğrulandı · ⏭️ yapılmadı (gerekçesi README'de)
+
+Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKPOINT numarasıyla).
+
+## P0 — 2.1 Uçuş listesi
+
+| # | Madde | Kanıt | Durum |
+|---|---|---|---|
+| 2.1.a | Uygulama liste ekranıyla açılır | | ⬜ |
+| 2.1.b | Kartta havayolu, uçuş no, kalkış/varış kodları, saatler, toplam süre, direkt/aktarmalı, fiyat, favori aksiyonu | | ⬜ |
+| 2.1.c | Toplam sonuç sayısı (`meta.total`) görünür | | ⬜ |
+| 2.1.d | Karta dokununca doğru uçuşun detayı açılır | | ⬜ |
+| 2.1.e | Favori aksiyonu detay navigasyonunu tetiklemez | | ⬜ |
+
+## P0 — 2.2 Sayfalama
+
+| # | Madde | Kanıt | Durum |
+|---|---|---|---|
+| 2.2.a | `page`, `limit=8` ile sayfalı istek | | ⬜ |
+| 2.2.b | Liste sonuna yaklaşınca sonraki sayfa; `hasMore=false` olunca durur | | ⬜ |
+| 2.2.c | Aynı sayfa iki kez istenmez; yükleme sürerken yeni istek yok | | ⬜ |
+| 2.2.d | Sonraki sayfa belirteci ekranı bloklamaz, liste görünür kalır | | ⬜ |
+
+## P0 — 2.3 Filtre ve sıralama
+
+| # | Madde | Kanıt | Durum |
+|---|---|---|---|
+| 2.3.a | "Yalnızca direkt" filtresi, "En düşük fiyat" / "En kısa süre" sıralaması | | ⬜ |
+| 2.3.b | Varsayılan: filtre kapalı, sıralama fiyat | | ⬜ |
+| 2.3.c | Sunucu tarafında (`onlyDirect`, `sort`); istemcide filtreleme/sıralama yok | | ⬜ |
+| 2.3.d | Değişince sayfalama başa döner, eski veri karışmaz | | ⬜ |
+| 2.3.e | Filtre sonucu boşsa açıklama + "Filtreyi temizle" | | ⬜ |
+
+## P0 — 2.4 Uçuş detayı
+
+| # | Madde | Kanıt | Durum |
+|---|---|---|---|
+| 2.4.a | Kart bilgileri + kalkış ve varış tarihi + bagaj | | ⬜ |
+| 2.4.b | `baggageKg` 0 → "Bagaj dahil değil", null → "Bagaj bilgisi yok" | | ⬜ |
+| 2.4.c | Detayda favori ekle/çıkar | | ⬜ |
+| 2.4.d | Listeye dönünce filtre, sıralama, yüklenmiş sayfalar korunur | | ⬜ |
+
+## P0 — 2.5 Favoriler
+
+| # | Madde | Kanıt | Durum |
+|---|---|---|---|
+| 2.5.a | Ayrı ekranda favoriler; detay açılır, favoriden çıkarılır | | ⬜ |
+| 2.5.b | Liste, detay, favoriler işaretleri anında tutarlı | | ⬜ |
+| 2.5.c | Son favori çıkınca boş durum | | ⬜ |
+| 2.5.d | Uygulama tamamen kapatılıp açılınca favoriler korunur | | ⬜ |
+| 2.5.e | Hydration bitmeden boş state depolamaya yazılmaz | | ⬜ |
+| 2.5.f | Favoriler ekranı liste filtresinden bağımsız | | ⬜ |
+
+## P0 — 2.6 Yüklenme, boş ve hata durumları
+
+| # | Madde | Kanıt | Durum |
+|---|---|---|---|
+| 2.6.a | İlk istekte yükleniyor durumu | | ⬜ |
+| 2.6.b | Boş liste → "Uçuş bulunamadı." | | ⬜ |
+| 2.6.c | Hata → anlaşılır mesaj + "Tekrar dene"; başarıya dönebilir, eldeki veriyi silmez | | ⬜ |
+| 2.6.d | Yükleniyor / hata / boş aynı anda görünmez | | ⬜ |
+
+## P0 — 2.7 Test
+
+| # | Madde | Kanıt | Durum |
+|---|---|---|---|
+| 2.7.1 | Filtre/sıralama parametreleri **veya** filtre değişiminde sayfalama sıfırlama | | ⬜ |
+| 2.7.2 | Favori ekle/çıkar + depolamadan geri yükleme | | ⬜ |
+| 2.7.x | Snapshot dışı, davranış odaklı | | ⬜ |
+
+## P0 — 5 Teknik beklentiler
+
+| # | Madde | Kanıt | Durum |
+|---|---|---|---|
+| 5.a | React Native + TypeScript | | ⬜ |
+| 5.b | README'de SDK, RN, Node, paket yöneticisi sürümleri; kilit dosyası | | ⬜ |
+| 5.c | Sorumluluk ayrımı; bileşenlerde HTTP çağrısı yok | | ⬜ |
+| 5.d | Safe area ve geri navigasyon | | ⬜ |
+| 5.e | Favori ve filtre kontrollerinde erişilebilir ad + seçili durum; bilgi yalnız renkle değil | | ⬜ |
+
+## P0 — 7 Teslim (README)
+
+| # | Madde | Kanıt | Durum |
+|---|---|---|---|
+| 7.1–7.7 | Kurulum/çalıştırma, platform, test komutu, mimari gerekçe, süre, P1 durumu, bilinen eksikler | | ⬜ |
+| 7.AI | AI kullanımı ve doğrulama yöntemi | | ⬜ |
+
+## P1
+
+| # | Madde | Kanıt | Durum |
+|---|---|---|---|
+| P1.1 | Ekran etkileşim testi: hata → "Tekrar dene" → liste | | ⬜ |
+| P1.2 | Sırasız yanıt dayanıklılığı (race) | | ⬜ |
+
+## Blok 0 sözleşme doğrulaması (curl, 20:52–)
+
+| Kontrol | Sonuç |
+|---|---|
+| `/health` | `status: ok`, `flightCount: 24` |
+| `sort=price` p1 | FL004, FL009, FL006, … · `total 24`, `totalPages 3` |
+| `sort=duration` p1 | FL003 (65), FL011 (65), FL001 (70), … |
+| `onlyDirect=true` | `total 17`, 3 sayfa (8 + 8 + 1) |
+| `ids` limit vermeden | yine `limit=8` uygulanır; 12 id → 8 kayıt + `hasMore: true` |
+| `ids` + `onlyDirect=true` | `onlyDirect` yok sayılır, meta'da `false` |
+| `/flights/FL013` | 200, `{ item }` |
+| `/flights/FL999` | 404 `FLIGHT_NOT_FOUND` |
+| `sort=name` | 400 `INVALID_SORT` |
+| `limit=999` | 50'ye kırpılır |
+| `/debug/fail-once` | sonraki `/flights*` isteği 500, ardından 200 |
+| `/debug/empty?value=on` | `items: []`, `total: 0`, `hasMore: false` |
+| Bagaj 0 | FL002, FL004, FL009, FL012, FL017, FL021, FL024 |
+| Bagaj null | FL006, FL010, FL015, FL020 |
+| Ertesi gün varış | yalnız FL024 (15.10 23:20 → 16.10 00:45) |
