@@ -91,8 +91,8 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
-| P1.1 | Ekran etkileşim testi: hata → "Tekrar dene" → liste | | ⬜ |
-| P1.2 | Sırasız yanıt dayanıklılığı (race) | `flightsReducer.test.ts › stale responses …`, `useFlights.test.ts › cancels the pending request…` · CHECKPOINT 2 (race) ✔ manuel | ✅ |
+| P1.1 | Ekran etkileşim testi: hata → "Tekrar dene" → liste | `FlightListScreen.test.tsx › shows an error with "Tekrar dene" and recovers to the list after retrying` (`<App />` gerçek navigasyonla, yalnız `getFlights` mock'lu; retry no-op yapılınca düştüğü doğrulandı) | ✅ |
+| P1.2 | Sırasız yanıt dayanıklılığı (race) | `flightsReducer.test.ts › stale responses …`, `useFlights.test.ts › cancels the pending request…` · CHECKPOINT 2 madde 4 ✔ manuel: `/debug/mode?value=race` açıkken filtre/sıralama hızlıca değiştirildi, son seçim (fiyat + direkt → FL002, FL024, FL017, "17 uçuş") kaldı | ✅ |
 
 ## Blok 0 sözleşme doğrulaması (curl, 20:52–)
 

@@ -156,7 +156,7 @@ CHECKPOINT 3 (kullanıcı, ~22:45): 1–6 geçti (favori butonu detayı açmıyo
 bagaj 0/null detayları, Expo Go kapat/aç sonrası favoriler yerinde). 7. adım (Accessibility Inspector) brief'te
 istenmediği için kullanıcı kararıyla atlandı; erişilebilirlik otomatik testlerle doğrulanıyor, ekran okuyucuyla denenmedi.
 
-## Blok 5 — Erişilebilirlik ve gözden geçirme (22:46–22:49)
+## Blok 5 — Erişilebilirlik ve gözden geçirme (22:46–22:47)
 
 **Yapılanlar**
 - AGENTS.md §4/§7 taraması (grep): `src/api` dışında `fetch(` yok; `any` / `@ts-ignore` yok; StrictMode yok; liste için
@@ -173,3 +173,20 @@ istenmediği için kullanıcı kararıyla atlandı; erişilebilirlik otomatik te
 - Sıralama butonlarının erişilebilir adı görünür metinden türüyordu, yani "✓ En düşük fiyat". VoiceOver seçimi hem ✓
   hem `selected` ile iki kez söylerdi. Sabit etiket verildi; test adı tam eşleşmeyle (`name: 'En düşük fiyat'`) kontrol ediyor.
 - zsh'te tırnaksız `grep --include=*.ts` glob olarak açılıp "no matches found" verdi; tarama tırnaklı desenle tekrarlandı.
+
+## Blok 6 — P1 (22:47–22:48)
+
+**Yapılanlar**
+- P1.1: `FlightListScreen.test.tsx`. `<App />` gerçek navigasyonla render edilir, yalnız `getFlights` mock'lanır. İlk istek
+  `ApiError(500)` → "Uçuşlar yüklenemedi." görünür, boş/yükleniyor görünmez → "Tekrar dene" → "2 uçuş" ve kart görünür,
+  hata kalkar; ikinci istek de aynı filtreyle `page: 1`.
+- P1.2 gözden geçirme: race koruması iki katmanda test ediliyor. Reducer'da eski `requestId`'li ilk sayfa, sonraki sayfa
+  ve hata yanıtları yok sayılıyor. Hook'ta filtre değişince bekleyen isteğin `signal`'i iptal ediliyor ve geç gelen eski
+  sayfa yeni sonuca karışmıyor. Manuel race doğrulaması CHECKPOINT 2 madde 4'te yapıldı. Ek test gerekmedi.
+
+**Doğrulama**
+- `npm test` → 9 suite, 60/60 · `npx tsc --noEmit` → temiz.
+- Mutasyon: `retryFirstPage` no-op yapılınca ekran testi "Unable to find an element with text: 2 uçuş" ile düştü; geri alındı.
+
+**İlk denemede yanlış / düzeltilen**
+- Blok 5'in bitiş saati WORKLOG'a `date` çalıştırılmadan tahminle (22:49) yazılmıştı; gerçek saatle (22:47) düzeltildi.
