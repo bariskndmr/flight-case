@@ -190,3 +190,26 @@ istenmediği için kullanıcı kararıyla atlandı; erişilebilirlik otomatik te
 
 **İlk denemede yanlış / düzeltilen**
 - Blok 5'in bitiş saati WORKLOG'a `date` çalıştırılmadan tahminle (22:49) yazılmıştı; gerçek saatle (22:47) düzeltildi.
+
+## Blok 7 — README ve son kontrol (22:48–22:51)
+
+**Yapılanlar**
+- README (Türkçe): sürümler; brief §7'nin 7 maddesi aynı sıra ve başlıklarla; mimari gerekçe içinde favori saklama
+  tercihi ve detay parametresinin gerekçesi; AI kullanımı (taslak). §5 "Harcadığın süre" adaya bırakıldı, blok saatleri tabloda.
+- Doğrulanan simülatör `xcrun simctl list devices booted` → iPhone 18 Pro (iOS 27.0); Expo Go 57.0.9; Xcode 27.0.
+- Öz denetim: brief ve case-kit README yeniden karşılaştırıldı; CHECKLIST'te P0 ve P1'in tamamı ✅. Yalnız README
+  §5 (süre) ve AI bölümünün aday tarafından gözden geçirilmesi 🟡.
+
+**Doğrulama (bitti tanımı)**
+- `npm test` → 9 suite, 60/60 · `npx tsc --noEmit` → temiz · `npx expo install --check` → "Dependencies are up to date"
+  · `npx expo export --platform ios` → derlendi.
+- Temiz klon: `git clone . /tmp/flight-case-clone && npm ci && npm test` → 60/60, `tsc` temiz; klonda `docs/case/` yok.
+  `npm ci` yalnızca jest 29'un geçişli bağımlılıkları için deprecation uyarısı verdi (inflight, glob@7 vb.); peer çakışması yok.
+- Mock servis kapatıldı (port 4000 boş). `ios/` `android/` yok, uzak depo yok (`git remote` boş).
+
+**İlk denemede yanlış / düzeltilen**
+- (yok)
+
+**Açık riskler**
+- Android denenmedi. `npm audit` jest/expo alt bağımlılıklarında bilinen açıklar raporluyor. Bunlar geliştirme
+  araçlarında ve `--force` ile SDK dışı sürümlere geçmek gerekeceği için dokunulmadı.

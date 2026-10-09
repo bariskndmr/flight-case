@@ -168,7 +168,7 @@ WORKLOG'daki blok saatleri (`date` çıktısı). Checkpoint'ler arasındaki sür
 | CHECKPOINT 3 (favoriler, detay) | 22:26–22:46 |
 | 5 — Erişilebilirlik ve gözden geçirme | 22:46–22:47 |
 | 6 — P1 | 22:47–22:48 |
-| 7 — README ve son kontrol | 22:48–… |
+| 7 — README ve son kontrol | 22:48–22:51 |
 
 ## 6. P1'de ne yaptın, ne yapmadın
 
