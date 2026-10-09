@@ -98,3 +98,23 @@ Araç: Claude Code (Opus 5.5), VS Code eklentisi. Saatler `date '+%H:%M'` ile al
 
 **Açık riskler**
 - Gerçek cihazda/simülatörde `onEndReached` davranışı ve race modu henüz manuel doğrulanmadı (CHECKPOINT 2).
+
+CHECKPOINT 2 (kullanıcı, ~22:20): 9 manuel kontrolün hepsi geçti (açılış sırası, sayfalama tekilliği, filtre/sıralama
+sıfırlama, race, ilk/sonraki sayfa hatası, iki boş durum, slow modda yükleniyor, detaydan dönüşte state korunması).
+Not: "Uçuş bulunamadı." durumunda yeniden yükleme aksiyonu yok (brief istemiyor); `empty=off` sonrası listeyi
+görmek için filtre değiştirmek ya da uygulamayı yenilemek gerekiyor. Bilinen eksik olarak README'ye girecek.
+
+## Blok 3 — Detay (22:22–22:23)
+
+**Yapılanlar**
+- `FlightDetailScreen`: route parametresindeki `FlightDto`'yu `toFlightView` ile gösterir, ek istek atmaz. Kalkış ve
+  varış ayrı kartlarda; her birinde saat, havalimanı kodu ve adı, tarih. FL024'te varış tarihi "16 Ekim 2026 (ertesi gün)".
+  Süre, aktarma, bagaj ("Bagaj dahil değil" / "Bagaj bilgisi yok" / "n kg") ve fiyat.
+- Alt safe area `useSafeAreaInsets().bottom` ile; üstü native header karşılar.
+- Biçimlendirme ve testleri Blok 2'de yazılmıştı (bkz. plandan sapma). Detaydaki favori aksiyonu Blok 4'te.
+
+**Doğrulama**
+- `npm test` → 50/50 · `npx tsc --noEmit` → temiz. Detayın manuel kontrolü CHECKPOINT 3'te.
+
+**İlk denemede yanlış / düzeltilen**
+- (yok)

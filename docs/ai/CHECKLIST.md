@@ -10,8 +10,8 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 |---|---|---|---|
 | 2.1.a | Uygulama liste ekranıyla açılır | Kök navigator Tabs → ilk sekme Flights · CHECKPOINT 1 (manuel) | ✅ |
 | 2.1.b | Kartta havayolu, uçuş no, kalkış/varış kodları, saatler, toplam süre, direkt/aktarmalı, fiyat, favori aksiyonu | `FlightCard` (favori Blok 4) · CHECKPOINT 2 | 🟡 |
-| 2.1.c | Toplam sonuç sayısı (`meta.total`) görünür | `FlightListControls` → "{n} uçuş" · CHECKPOINT 2 | 🟡 |
-| 2.1.d | Karta dokununca doğru uçuşun detayı açılır | `navigate('FlightDetail', { flight })` · CHECKPOINT 3 | 🟡 |
+| 2.1.c | Toplam sonuç sayısı (`meta.total`) görünür | `FlightListControls` → "{n} uçuş" · CHECKPOINT 2 ✔ manuel | ✅ |
+| 2.1.d | Karta dokununca doğru uçuşun detayı açılır | `navigate('FlightDetail', { flight })` · CHECKPOINT 2 madde 9 ✔ manuel | ✅ |
 | 2.1.e | Favori aksiyonu detay navigasyonunu tetiklemez | | ⬜ |
 
 ## P0 — 2.2 Sayfalama
@@ -19,19 +19,19 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
 | 2.2.a | `page`, `limit=8` ile sayfalı istek | `flights.test.ts › buildFlightsQuery …` | ✅ |
-| 2.2.b | Liste sonuna yaklaşınca sonraki sayfa; `hasMore=false` olunca durur | `useFlights.test.ts › stops asking once hasMore is false` · CHECKPOINT 2 | 🟡 |
-| 2.2.c | Aynı sayfa iki kez istenmez; yükleme sürerken yeni istek yok | `useFlights.test.ts › requests the next page only once when onEndReached fires repeatedly` · CHECKPOINT 2 | 🟡 |
-| 2.2.d | Sonraki sayfa belirteci ekranı bloklamaz, liste görünür kalır | `ListFooter` (FlatList footer) · CHECKPOINT 2 | 🟡 |
+| 2.2.b | Liste sonuna yaklaşınca sonraki sayfa; `hasMore=false` olunca durur | `useFlights.test.ts › stops asking once hasMore is false` · CHECKPOINT 2 ✔ manuel | ✅ |
+| 2.2.c | Aynı sayfa iki kez istenmez; yükleme sürerken yeni istek yok | `useFlights.test.ts › requests the next page only once when onEndReached fires repeatedly` · CHECKPOINT 2 ✔ manuel | ✅ |
+| 2.2.d | Sonraki sayfa belirteci ekranı bloklamaz, liste görünür kalır | `ListFooter` (FlatList footer) · CHECKPOINT 2 ✔ manuel | ✅ |
 
 ## P0 — 2.3 Filtre ve sıralama
 
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
-| 2.3.a | "Yalnızca direkt" filtresi, "En düşük fiyat" / "En kısa süre" sıralaması | `FlightListControls` · CHECKPOINT 2 | 🟡 |
+| 2.3.a | "Yalnızca direkt" filtresi, "En düşük fiyat" / "En kısa süre" sıralaması | `FlightListControls` · CHECKPOINT 2 ✔ manuel | ✅ |
 | 2.3.b | Varsayılan: filtre kapalı, sıralama fiyat | `flightsReducer.test.ts › starts on a first-page load with the default filters`, `useFlights.test.ts › loads page 1 with the default filters on mount` | ✅ |
 | 2.3.c | Sunucu tarafında (`onlyDirect`, `sort`); istemcide filtreleme/sıralama yok | `flights.test.ts › sends sort=duration…`, `…onlyDirect=true…`; istemcide sort/filter kodu yok | ✅ |
-| 2.3.d | Değişince sayfalama başa döner, eski veri karışmaz | `flightsReducer.test.ts › when the filter or sort changes …`, `useFlights.test.ts › cancels the pending request…` · CHECKPOINT 2 | 🟡 |
-| 2.3.e | Filtre sonucu boşsa açıklama + "Filtreyi temizle" | `FlightListScreen.renderBody` · CHECKPOINT 2 (`/debug/empty`) | 🟡 |
+| 2.3.d | Değişince sayfalama başa döner, eski veri karışmaz | `flightsReducer.test.ts › when the filter or sort changes …`, `useFlights.test.ts › cancels the pending request…` · CHECKPOINT 2 ✔ manuel | ✅ |
+| 2.3.e | Filtre sonucu boşsa açıklama + "Filtreyi temizle" | `FlightListScreen.renderBody` · CHECKPOINT 2 (`/debug/empty`) ✔ manuel | ✅ |
 
 ## P0 — 2.4 Uçuş detayı
 
@@ -40,7 +40,7 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 | 2.4.a | Kart bilgileri + kalkış ve varış tarihi + bagaj | | ⬜ |
 | 2.4.b | `baggageKg` 0 → "Bagaj dahil değil", null → "Bagaj bilgisi yok" | | ⬜ |
 | 2.4.c | Detayda favori ekle/çıkar | | ⬜ |
-| 2.4.d | Listeye dönünce filtre, sıralama, yüklenmiş sayfalar korunur | | ⬜ |
+| 2.4.d | Listeye dönünce filtre, sıralama, yüklenmiş sayfalar korunur | Liste ekranı stack'te mount kalır, state `useReducer`'da · CHECKPOINT 2 madde 9 ✔ manuel | ✅ |
 
 ## P0 — 2.5 Favoriler
 
@@ -57,10 +57,10 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
-| 2.6.a | İlk istekte yükleniyor durumu | `StateView kind="loading"` · CHECKPOINT 2 (`/debug/mode?value=slow`) | 🟡 |
-| 2.6.b | Boş liste → "Uçuş bulunamadı." | `FlightListScreen.renderBody` · CHECKPOINT 2 (`/debug/empty`) | 🟡 |
-| 2.6.c | Hata → anlaşılır mesaj + "Tekrar dene"; başarıya dönebilir, eldeki veriyi silmez | `flightsReducer.test.ts › keeps the loaded items when a next page fails`, `› recovers when …retried`, `useFlights.test.ts › does not retry a failed next page on scroll…` · CHECKPOINT 2 (`/debug/fail-once`) | 🟡 |
-| 2.6.d | Yükleniyor / hata / boş aynı anda görünmez | Tek `status` alanı + `renderBody` içinde tek dal · CHECKPOINT 2 | 🟡 |
+| 2.6.a | İlk istekte yükleniyor durumu | `StateView kind="loading"` · CHECKPOINT 2 (`/debug/mode?value=slow`) ✔ manuel | ✅ |
+| 2.6.b | Boş liste → "Uçuş bulunamadı." | `FlightListScreen.renderBody` · CHECKPOINT 2 (`/debug/empty`) ✔ manuel | ✅ |
+| 2.6.c | Hata → anlaşılır mesaj + "Tekrar dene"; başarıya dönebilir, eldeki veriyi silmez | `flightsReducer.test.ts › keeps the loaded items when a next page fails`, `› recovers when …retried`, `useFlights.test.ts › does not retry a failed next page on scroll…` · CHECKPOINT 2 (`/debug/fail-once`) ✔ manuel | ✅ |
+| 2.6.d | Yükleniyor / hata / boş aynı anda görünmez | Tek `status` alanı + `renderBody` içinde tek dal · CHECKPOINT 2 ✔ manuel | ✅ |
 
 ## P0 — 2.7 Test
 
@@ -92,7 +92,7 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
 | P1.1 | Ekran etkileşim testi: hata → "Tekrar dene" → liste | | ⬜ |
-| P1.2 | Sırasız yanıt dayanıklılığı (race) | `flightsReducer.test.ts › stale responses …`, `useFlights.test.ts › cancels the pending request…` · CHECKPOINT 2 (race) | 🟡 |
+| P1.2 | Sırasız yanıt dayanıklılığı (race) | `flightsReducer.test.ts › stale responses …`, `useFlights.test.ts › cancels the pending request…` · CHECKPOINT 2 (race) ✔ manuel | ✅ |
 
 ## Blok 0 sözleşme doğrulaması (curl, 20:52–)
 
