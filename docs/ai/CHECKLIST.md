@@ -75,7 +75,7 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
 | 5.a | React Native + TypeScript | Expo SDK 57 / RN 0.86.3 / TypeScript 6 `strict`; `npx tsc --noEmit` temiz | ✅ |
-| 5.b | README'de SDK, RN, Node, paket yöneticisi sürümleri; kilit dosyası | | ⬜ |
+| 5.b | README'de SDK, RN, Node, paket yöneticisi sürümleri; kilit dosyası | README › Sürümler; `package-lock.json` commit'li; temiz klonda `npm ci` (Blok 7) | ✅ |
 | 5.c | Sorumluluk ayrımı; bileşenlerde HTTP çağrısı yok | `api/` (HTTP) · `domain/` (biçimlendirme) · `features/*` (state + ekran) · `components/` (UI). `grep "fetch(" src` yalnız `src/api/client.ts` | ✅ |
 | 5.d | Safe area ve geri navigasyon | Tab/stack header üst, tab bar alt inset'i karşılar; detayda `useSafeAreaInsets().bottom`. Native-stack geri butonu ve kaydırarak geri · CHECKPOINT 2–3 ✔ manuel | ✅ |
 | 5.e | Favori ve filtre kontrollerinde erişilebilir ad + seçili durum; bilgi yalnız renkle değil | `FlightListControls.test.tsx` (switch adı, sıralama `selected` + ✓), `FlightCard.test.tsx` (favori adı + `selected`, görünür "Favoride") | ✅ |
@@ -84,8 +84,8 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
-| 7.1–7.7 | Kurulum/çalıştırma, platform, test komutu, mimari gerekçe, süre, P1 durumu, bilinen eksikler | | ⬜ |
-| 7.AI | AI kullanımı ve doğrulama yöntemi | | ⬜ |
+| 7.1–7.7 | Kurulum/çalıştırma, platform, test komutu, mimari gerekçe, süre, P1 durumu, bilinen eksikler | README §1–§7, brief sırası ve başlıklarıyla. §5 süre adayca doldurulacak | 🟡 |
+| 7.AI | AI kullanımı ve doğrulama yöntemi | README › AI kullanımı (taslak, aday gözden geçirecek) | 🟡 |
 
 ## P1
 
