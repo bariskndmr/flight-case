@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FavoriteButton } from '../../components/FavoriteButton';
 import { colors } from '../../components/theme';
 import { toFlightView } from '../../domain/flightView';
 import type { FlightDetailScreenProps } from '../../navigation/types';
@@ -19,7 +20,10 @@ export function FlightDetailScreen({ route }: FlightDetailScreenProps) {
         <Text style={styles.title}>
           {view.airline} · {view.flightNumber}
         </Text>
-        <Text style={styles.price}>{view.price}</Text>
+        <View style={styles.priceRow}>
+          <Text style={styles.price}>{view.price}</Text>
+          <FavoriteButton flight={route.params.flight} />
+        </View>
       </View>
 
       <View style={styles.section}>
@@ -48,8 +52,6 @@ export function FlightDetailScreen({ route }: FlightDetailScreenProps) {
         <InfoRow label="Aktarma" value={view.stops} />
         <InfoRow label="Bagaj" value={view.baggage} />
       </View>
-
-      {/* Favorite toggle is added in block 4, reading its state from the favorites store by id. */}
     </ScrollView>
   );
 }
@@ -68,6 +70,7 @@ const styles = StyleSheet.create({
   content: { padding: 16, gap: 12 },
   header: { gap: 4 },
   title: { fontSize: 18, fontWeight: '600', color: colors.text },
+  priceRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   price: { fontSize: 24, fontWeight: '700', color: colors.text },
   section: {
     backgroundColor: colors.surface,

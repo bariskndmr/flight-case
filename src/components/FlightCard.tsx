@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { FlightDto } from '../api/flight.types';
 import { toFlightView } from '../domain/flightView';
+import { FavoriteButton } from './FavoriteButton';
 import { colors } from './theme';
 
 type Props = {
@@ -47,7 +48,13 @@ export function FlightCard({ flight, onPress }: Props) {
           </View>
         </View>
       </Pressable>
-      {/* The favorite button is added in block 4 as a sibling of the Pressable, not inside it. */}
+      {/*
+        Sibling of the card's Pressable, not a child: a tap here never bubbles into the detail navigation,
+        and VoiceOver sees two elements (an accessible parent would merge its children into one).
+      */}
+      <View style={styles.actions}>
+        <FavoriteButton flight={flight} />
+      </View>
     </View>
   );
 }
@@ -62,7 +69,14 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     overflow: 'hidden',
   },
-  body: { padding: 16, gap: 12 },
+  body: { padding: 16, paddingBottom: 8, gap: 12 },
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
+    paddingHorizontal: 4,
+  },
   pressed: { opacity: 0.6 },
   row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   airline: { fontSize: 14, color: colors.textMuted, flexShrink: 1 },

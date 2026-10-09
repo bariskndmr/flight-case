@@ -9,10 +9,10 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
 | 2.1.a | Uygulama liste ekranıyla açılır | Kök navigator Tabs → ilk sekme Flights · CHECKPOINT 1 (manuel) | ✅ |
-| 2.1.b | Kartta havayolu, uçuş no, kalkış/varış kodları, saatler, toplam süre, direkt/aktarmalı, fiyat, favori aksiyonu | `FlightCard` (favori Blok 4) · CHECKPOINT 2 | 🟡 |
+| 2.1.b | Kartta havayolu, uçuş no, kalkış/varış kodları, saatler, toplam süre, direkt/aktarmalı, fiyat, favori aksiyonu | `FlightCard` + `FavoriteButton` · CHECKPOINT 2 ✔ (favori hariç), CHECKPOINT 3 | 🟡 |
 | 2.1.c | Toplam sonuç sayısı (`meta.total`) görünür | `FlightListControls` → "{n} uçuş" · CHECKPOINT 2 ✔ manuel | ✅ |
 | 2.1.d | Karta dokununca doğru uçuşun detayı açılır | `navigate('FlightDetail', { flight })` · CHECKPOINT 2 madde 9 ✔ manuel | ✅ |
-| 2.1.e | Favori aksiyonu detay navigasyonunu tetiklemez | | ⬜ |
+| 2.1.e | Favori aksiyonu detay navigasyonunu tetiklemez | `FlightCard.test.tsx › toggles the favorite without opening the detail`; buton Pressable'ın kardeşi · CHECKPOINT 3 | 🟡 |
 
 ## P0 — 2.2 Sayfalama
 
@@ -37,21 +37,21 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
-| 2.4.a | Kart bilgileri + kalkış ve varış tarihi + bagaj | | ⬜ |
-| 2.4.b | `baggageKg` 0 → "Bagaj dahil değil", null → "Bagaj bilgisi yok" | | ⬜ |
-| 2.4.c | Detayda favori ekle/çıkar | | ⬜ |
+| 2.4.a | Kart bilgileri + kalkış ve varış tarihi + bagaj | `flightView.test.ts › formats every field…`, `› marks FL024…` · CHECKPOINT 3 | 🟡 |
+| 2.4.b | `baggageKg` 0 → "Bagaj dahil değil", null → "Bagaj bilgisi yok" | `format.test.ts › baggageText …`, `flightView.test.ts › shows missing baggage…` · CHECKPOINT 3 (FL004=0, FL006=null) | 🟡 |
+| 2.4.c | Detayda favori ekle/çıkar | `FavoriteButton` detayda · CHECKPOINT 3 | 🟡 |
 | 2.4.d | Listeye dönünce filtre, sıralama, yüklenmiş sayfalar korunur | Liste ekranı stack'te mount kalır, state `useReducer`'da · CHECKPOINT 2 madde 9 ✔ manuel | ✅ |
 
 ## P0 — 2.5 Favoriler
 
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
-| 2.5.a | Ayrı ekranda favoriler; detay açılır, favoriden çıkarılır | | ⬜ |
-| 2.5.b | Liste, detay, favoriler işaretleri anında tutarlı | | ⬜ |
-| 2.5.c | Son favori çıkınca boş durum | | ⬜ |
-| 2.5.d | Uygulama tamamen kapatılıp açılınca favoriler korunur | | ⬜ |
-| 2.5.e | Hydration bitmeden boş state depolamaya yazılmaz | | ⬜ |
-| 2.5.f | Favoriler ekranı liste filtresinden bağımsız | | ⬜ |
+| 2.5.a | Ayrı ekranda favoriler; detay açılır, favoriden çıkarılır | `FavoritesScreen` · CHECKPOINT 3 | 🟡 |
+| 2.5.b | Liste, detay, favoriler işaretleri anında tutarlı | Tek store, `FavoriteButton` id ile okur; `FlightCard.test.tsx › toggles…` · CHECKPOINT 3 | 🟡 |
+| 2.5.c | Son favori çıkınca boş durum | `FavoritesScreen` → "Henüz favori uçuşun yok." · CHECKPOINT 3 | 🟡 |
+| 2.5.d | Uygulama tamamen kapatılıp açılınca favoriler korunur | `favoritesStore.test.ts › restores saved favorites… (app restart)` · CHECKPOINT 3 (Expo Go kapat/aç) | 🟡 |
+| 2.5.e | Hydration bitmeden boş state depolamaya yazılmaz | `favoritesStore.test.ts › ignores actions before hydration so saved favorites are never overwritten` (mutasyonla doğrulandı) | ✅ |
+| 2.5.f | Favoriler ekranı liste filtresinden bağımsız | `FavoritesScreen` yalnız store'u okur, liste filtresine bağlı değil · CHECKPOINT 3 | 🟡 |
 
 ## P0 — 2.6 Yüklenme, boş ve hata durumları
 
@@ -67,8 +67,8 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
 | 2.7.1 | Filtre/sıralama parametreleri **veya** filtre değişiminde sayfalama sıfırlama | `flights.test.ts` (parametreler) **ve** `flightsReducer.test.ts` (sıfırlama) | ✅ |
-| 2.7.2 | Favori ekle/çıkar + depolamadan geri yükleme | | ⬜ |
-| 2.7.x | Snapshot dışı, davranış odaklı | | ⬜ |
+| 2.7.2 | Favori ekle/çıkar + depolamadan geri yükleme | `favoritesStore.test.ts` (5 test: yazma, partialize, geri yükleme, hydration koruması, sıra) | ✅ |
+| 2.7.x | Snapshot dışı, davranış odaklı | Snapshot testi yok; 7 suite davranış testi | ✅ |
 
 ## P0 — 5 Teknik beklentiler
 

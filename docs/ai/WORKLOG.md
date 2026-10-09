@@ -118,3 +118,36 @@ görmek için filtre değiştirmek ya da uygulamayı yenilemek gerekiyor. Biline
 
 **İlk denemede yanlış / düzeltilen**
 - (yok)
+
+## Blok 4 — Favoriler (22:23–22:26, CHECKPOINT 3 bekleniyor)
+
+**Yapılanlar**
+- `favoritesStore.ts`: `createFavoritesStore()` fabrikası (Zustand vanilla + `persist` + AsyncStorage). `name: 'favorites'`,
+  `version: 1`, `partialize` yalnız `favorites`'ı yazar. State: `id → { flight: FlightDto, addedAt }`.
+  `hasHydrated` `onRehydrateStorage` ile (başarı veya hata) true olur; `toggleFavorite` / `removeFavorite` o zamana kadar no-op.
+- `FavoriteButton`: durumu store'dan id ile okur; hydration bitene kadar disabled; a11y label "{no} favorilere ekle/çıkar",
+  `accessibilityState.selected`, görünür metin "Favori"/"Favoride".
+- `FlightCard`: buton, kartın Pressable'ının kardeşi olarak alt satırda.
+- `FlightDetailScreen`: fiyat satırında favori butonu.
+- `FavoritesScreen`: hydration sürerken yükleniyor; boşsa "Henüz favori uçuşun yok."; yoksa `addedAt` azalan sırada liste.
+  Sıralama `useMemo`'da (selector'da yeni dizi döndürmek v5'te sonsuz render'a yol açar).
+- `FlightCard.test.tsx` (AGENTS §9 madde 6, isteğe bağlı): favori butonu detay navigasyonunu tetiklemiyor; karta basınca tetikleniyor.
+
+**Doğrulama**
+- `npm test` → 6 suite, 57/57 · `npx tsc --noEmit` → temiz · `npx expo install --check` → güncel · `npx expo export --platform ios` → derlendi.
+- Mutasyon: store'daki `hasHydrated` koruması silinince "ignores actions before hydration" testi düştü (testin ikinci sürümüyle; aşağıya bak).
+
+**İlk denemede yanlış / düzeltilen**
+- **Hydration testi ilk hâliyle hatayı yakalamıyordu.** Koruma silindiğinde de geçiyordu. Sebep: Zustand `persist`
+  `getItem`'ı store oluşturulurken başlatır ve hydration'da depodaki değeri bellektekinin üstüne yazar; ardından
+  `markHydrated` → `setItem` depoyu düzeltir. Test, okumanın yazmadan önce bittiği "şanslı" sırayı modelliyordu.
+  Gerçek risk: erken yazma okumadan önce tamamlanırsa (ya da uygulama o arada kapanırsa) depoda yalnız yeni favori kalır.
+  Test, `AsyncStorage.getItem`'ı bir kapıyla geciktirip erken yazmanın önce gelmesini sağlayacak ve hydration öncesi
+  bellek/depo durumunu da kontrol edecek şekilde yeniden yazıldı; mutasyonla düştüğü doğrulandı.
+- `@expo/vector-icons` → `expo-font` → `expo-asset` zinciri jest'te "Cannot find module 'expo-asset'" verdi:
+  `expo-asset` yalnız `expo/node_modules` altındaydı (hoist edilmemiş), `expo-font` onu bağımlılık olarak bildirmiyor.
+  Metro çözebiliyordu, jest çözemedi. Mock'la gizlemek yerine `npx expo install expo-asset` (~57.0.19) ile doğrudan bağımlılık yapıldı.
+
+**Açık riskler**
+- Hydration öncesi favori dokunuşu sessizce yok sayılır (buton zaten disabled). AsyncStorage okuması pratikte ms
+  mertebesinde olduğundan kullanıcı fark etmez.
