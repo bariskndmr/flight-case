@@ -1,6 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { makeFlight } from '../../test/fixtures';
-import { createFavoritesStore, FAVORITES_STORAGE_KEY, type FavoritesStore } from './favoritesStore';
+import {
+  createFavoritesStore,
+  FAVORITES_STORAGE_KEY,
+  favoritesNewestFirst,
+  type FavoritesStore,
+} from './favoritesStore';
 
 const FL004 = makeFlight({ id: 'FL004', flightNumber: 'AE331' });
 const FL013 = makeFlight({ id: 'FL013', flightNumber: 'TA544' });
@@ -47,7 +52,7 @@ describe('favorites store', () => {
     store.getState().toggleFavorite(FL004);
     expect(await storedFavoriteIds()).toEqual(['FL013']);
 
-    store.getState().removeFavorite('FL013');
+    store.getState().toggleFavorite(FL013);
     expect(await storedFavoriteIds()).toEqual([]);
   });
 
@@ -91,7 +96,7 @@ describe('favorites store', () => {
     const secondLaunch = createFavoritesStore();
     expect(secondLaunch.getState().hasHydrated).toBe(false);
     secondLaunch.getState().toggleFavorite(FL013);
-    secondLaunch.getState().removeFavorite('FL004');
+    secondLaunch.getState().toggleFavorite(FL004);
 
     // Nothing changed in memory, and nothing was written over the saved favorites.
     expect(favoriteIds(secondLaunch)).toEqual([]);
@@ -104,17 +109,18 @@ describe('favorites store', () => {
     expect(await storedFavoriteIds()).toEqual(['FL004']);
   });
 
-  it('records when each favorite was added, for newest-first ordering', async () => {
+  it('lists favorites most recently added first', async () => {
     const now = jest.spyOn(Date, 'now');
     const store = await hydrated(createFavoritesStore());
 
     now.mockReturnValue(1000);
-    store.getState().toggleFavorite(FL004);
-    now.mockReturnValue(2000);
     store.getState().toggleFavorite(FL013);
+    now.mockReturnValue(2000);
+    store.getState().toggleFavorite(FL004);
+    now.mockReturnValue(3000);
+    store.getState().toggleFavorite(FL024);
     now.mockRestore();
 
-    expect(store.getState().favorites.FL004.addedAt).toBe(1000);
-    expect(store.getState().favorites.FL013.addedAt).toBe(2000);
+    expect(favoritesNewestFirst(store.getState().favorites).map(f => f.id)).toEqual(['FL024', 'FL004', 'FL013']);
   });
 });

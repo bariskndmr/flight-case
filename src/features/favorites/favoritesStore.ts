@@ -20,7 +20,6 @@ export type FavoritesState = {
    */
   hasHydrated: boolean;
   toggleFavorite: (flight: FlightDto) => void;
-  removeFavorite: (id: string) => void;
   markHydrated: () => void;
 };
 
@@ -40,12 +39,6 @@ export function createFavoritesStore() {
           set({
             favorites: existing ? rest : { ...get().favorites, [flight.id]: { flight, addedAt: Date.now() } },
           });
-        },
-
-        removeFavorite: id => {
-          if (!get().hasHydrated) return;
-          const { [id]: _removed, ...rest } = get().favorites;
-          set({ favorites: rest });
         },
 
         markHydrated: () => set({ hasHydrated: true }),
@@ -74,4 +67,18 @@ export const favoritesStore = createFavoritesStore();
 
 export function useFavorites<T>(selector: (state: FavoritesState) => T): T {
   return useStore(favoritesStore, selector);
+}
+
+/** Selector for one flight: a card re-renders only when its own favorite state changes. */
+export const selectIsFavorite = (id: string) => (state: FavoritesState) => id in state.favorites;
+
+/**
+ * Favorites screen order: most recently added first.
+ * A plain function to call inside useMemo, not a selector: a selector that builds a new array
+ * on every call makes Zustand's useSyncExternalStore re-render forever.
+ */
+export function favoritesNewestFirst(favorites: Record<string, FavoriteEntry>): FlightDto[] {
+  return Object.values(favorites)
+    .sort((a, b) => b.addedAt - a.addedAt)
+    .map(entry => entry.flight);
 }
