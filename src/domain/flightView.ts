@@ -9,6 +9,8 @@ export type FlightView = {
   id: string;
   flightNumber: string;
   airline: string;
+  /** "Anadolu Express · AE331" */
+  title: string;
   originCode: string;
   originName: string;
   destinationCode: string;
@@ -40,6 +42,7 @@ export function toFlightView(flight: FlightDto): FlightView {
     id: flight.id,
     flightNumber: flight.flightNumber,
     airline: flight.airline,
+    title: `${flight.airline} · ${flight.flightNumber}`,
     originCode: flight.origin.code,
     originName: flight.origin.name,
     destinationCode: flight.destination.code,

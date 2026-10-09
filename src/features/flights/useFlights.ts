@@ -86,11 +86,17 @@ export function useFlights() {
 
   const retryFirstPage = useCallback(() => loadFirstPage(state.filters), [loadFirstPage, state.filters]);
 
+  /** "Filtreyi temizle": turns the direct-only filter off and keeps the chosen sort. */
+  const clearDirectFilter = useCallback(
+    () => changeFilters({ ...state.filters, onlyDirect: false }),
+    [changeFilters, state.filters],
+  );
+
   // Load the first page once on mount; cancel whatever is still in flight on unmount.
   useEffect(() => {
     loadFirstPage(initialFlightsState.filters);
     return () => inFlight.current?.abort();
   }, [loadFirstPage]);
 
-  return { state, changeFilters, loadMore, retryFirstPage, retryNextPage };
+  return { state, changeFilters, clearDirectFilter, loadMore, retryFirstPage, retryNextPage };
 }

@@ -19,6 +19,7 @@ describe('toFlightView', () => {
   it('formats every field of a same-day flight', () => {
     expect(toFlightView(makeFlight())).toMatchObject({
       flightNumber: 'TA544',
+      title: 'Toros Air · TA544',
       originCode: 'IST',
       destinationCode: 'AYT',
       departureTime: '13:25',

@@ -219,3 +219,43 @@ istenmediği için kullanıcı kararıyla atlandı; erişilebilirlik otomatik te
 - CHECKPOINT 3'ün 7. adımı (Accessibility Inspector) başta atlanmıştı ve README'ye "Bilinen eksikler" altında "ekran
   okuyucuyla deneme yapılmadı" diye yazılmıştı. Kullanıcı sonradan Accessibility Inspector ile kontrol etti.
 - README'de madde "Bilinen eksikler"den çıkarıldı ve §2'deki manuel kontrollere eklendi. CHECKLIST 5.e'ye manuel kanıt eklendi.
+
+## Kod gözden geçirme — tekrar, sabitler, ölü kod, iş kuralı yeri (23:04–23:08)
+
+Kullanıcının kontrol listesi: tekrar eden kod/biçimlendirme, tekrar eden renk ve sayılar, kullanılmayan dosya ve
+bağımlılık, bileşenin içinde kalmış iş kuralı.
+
+**Bulgular ve yapılanlar**
+- Tekrar eden kod:
+  - Uçuşlar ve Favoriler ekranında aynı FlatList kurulumu (`renderItem`, `keyExtractor`, içerik boşluğu) → `components/FlightCardList.tsx`.
+  - "Tekrar dene" iki ayrı buton olarak yazılmıştı ve iki farklı görünümdeydi (StateView'da dolu, footer'da çerçeveli) → `components/ActionButton.tsx`.
+  - Kart yüzeyi stili (beyaz zemin, 12 radius, hairline kenar) kartta ve detay bölümlerinde ayrı ayrı → `theme.surface`.
+  - "Havayolu · uçuş no" biçimi kartta ve detayda ayrı ayrı → `FlightView.title`.
+- Tekrar eden sayılar: 9 farklı font boyutu (13–24) ve dağınık boşluklar (4, 6, 8, 10, 12, 16, 20, 24) vardı. `theme.ts`'e
+  `fontSize` (5 basamak), `spacing` (4-pt, 5 basamak), `radius` ve `opacity` eklendi. Stil dosyalarında koda gömülü sayı
+  kalmadı (grep ile doğrulandı). Bunun bedeli küçük görsel kaymalar: 14→13, 16→15, 17→18, 22→20 pt; 6→4, 10→12, 20→16 boşluk.
+  Renkler zaten tek yerdeydi (`theme.ts` dışında hex yok).
+- Kullanılmayanlar:
+  - `removeFavorite` uygulamada hiç çağrılmıyordu (yalnız testlerde) → silindi, testler `toggleFavorite` kullanıyor.
+  - `assets/splash-icon.png` hiçbir yerde referans edilmiyordu → silindi.
+  - `assets/favicon.png` ve `app.json`'daki `web` bloğu hedeflenmeyen web için ve `react-native-web` kurulu değil → silindi.
+  - Bağımlılıklar: import'u olmayan paketlerin hepsi meşru (tip paketleri, jest araçları; `test-renderer` RNTL peer'ı,
+    `react-native-screens` native-stack peer'ı, `expo-asset` expo-font'un çalışma zamanı bağımlılığı).
+- Bileşende kalmış iş kuralı:
+  - "Favoriler en yeni üstte" sıralaması `FavoritesScreen`'deydi → `favoritesStore.ts` içinde `favoritesNewestFirst()` (testli).
+  - "Bu kart favori mi" selector'ı → `selectIsFavorite(id)`.
+  - "Filtreyi temizle"nin ne yaptığı (`onlyDirect: false`, sıralama korunur) ekrandaydı → `useFlights().clearDirectFilter`.
+
+**Doğrulama**
+- `npm test` → 9 suite, 60/60 · `npx tsc --noEmit` temiz · `npx expo install --check` güncel · `npx expo export` derlendi.
+- Hydration testi `removeFavorite` yerine `toggleFavorite` ile yeniden yazıldığı için mutasyon tekrarlandı: koruma silinince yine düşüyor.
+
+**Açık riskler**
+- Font ve boşluk değerleri birkaç pt değişti; simülatörde göz kontrolü gerekiyor.
+
+**İlk denemede yanlış / düzeltilen**
+- Bu bölümün bitiş saati yine `date` çalıştırılmadan tahminle (23:12) yazılmıştı; gerçek saat 23:08. Blok 5'teki
+  hatanın tekrarı.
+- Ara commit'leri ayrı worktree'de doğrularken önce `npm test` yerine `npx jest` çalıştırıldı; `TZ` ayarlanmadığı için
+  `format.test.ts › runs these tests in a non-Istanbul time zone…` düştü. Kod hatası değil, komut hatası; ama nöbetçi
+  testin işe yaradığının canlı örneği. `npm test` ile iki ara commit de 60/60.

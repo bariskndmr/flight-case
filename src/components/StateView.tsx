@@ -1,5 +1,6 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
-import { colors } from './theme';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActionButton } from './ActionButton';
+import { colors, fontSize, spacing } from './theme';
 
 type Props =
   | { kind: 'loading' }
@@ -19,18 +20,19 @@ export function StateView(props: Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.message}>{message}</Text>
-      {actionLabel && onAction ? (
-        <Pressable accessibilityRole="button" onPress={onAction} style={styles.action}>
-          <Text style={styles.actionText}>{actionLabel}</Text>
-        </Pressable>
-      ) : null}
+      {actionLabel && onAction ? <ActionButton label={actionLabel} onPress={onAction} /> : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24, gap: 16 },
-  message: { fontSize: 16, color: colors.text, textAlign: 'center' },
-  action: { paddingHorizontal: 20, paddingVertical: 10, borderRadius: 8, backgroundColor: colors.accent },
-  actionText: { color: colors.surface, fontSize: 16, fontWeight: '600' },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: spacing.xl,
+    gap: spacing.lg,
+    backgroundColor: colors.background,
+  },
+  message: { fontSize: fontSize.body, color: colors.text, textAlign: 'center' },
 });

@@ -1,5 +1,6 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
-import { colors } from './theme';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActionButton } from './ActionButton';
+import { colors, fontSize, spacing } from './theme';
 
 type Props = {
   loadingMore: boolean;
@@ -21,9 +22,7 @@ export function ListFooter({ loadingMore, loadMoreError, onRetry }: Props) {
     return (
       <View style={styles.container}>
         <Text style={styles.error}>Sonraki sayfa yüklenemedi.</Text>
-        <Pressable accessibilityRole="button" onPress={onRetry} style={styles.retry}>
-          <Text style={styles.retryText}>Tekrar dene</Text>
-        </Pressable>
+        <ActionButton label="Tekrar dene" onPress={onRetry} />
       </View>
     );
   }
@@ -32,8 +31,6 @@ export function ListFooter({ loadingMore, loadMoreError, onRetry }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { paddingVertical: 20, alignItems: 'center', gap: 8 },
-  error: { color: colors.error, fontSize: 15 },
-  retry: { paddingHorizontal: 16, paddingVertical: 8, borderRadius: 8, borderWidth: 1, borderColor: colors.accent },
-  retryText: { color: colors.accent, fontSize: 15, fontWeight: '600' },
+  container: { paddingVertical: spacing.lg, alignItems: 'center', gap: spacing.sm },
+  error: { color: colors.error, fontSize: fontSize.body },
 });

@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FavoriteButton } from '../../components/FavoriteButton';
-import { colors } from '../../components/theme';
+import { colors, fontSize, spacing, surface } from '../../components/theme';
 import { toFlightView } from '../../domain/flightView';
 import type { FlightDetailScreenProps } from '../../navigation/types';
 
@@ -15,11 +15,9 @@ export function FlightDetailScreen({ route }: FlightDetailScreenProps) {
   const { bottom } = useSafeAreaInsets();
 
   return (
-    <ScrollView style={styles.screen} contentContainerStyle={[styles.content, { paddingBottom: bottom + 24 }]}>
+    <ScrollView style={styles.screen} contentContainerStyle={[styles.content, { paddingBottom: bottom + spacing.xl }]}>
       <View style={styles.header}>
-        <Text style={styles.title}>
-          {view.airline} · {view.flightNumber}
-        </Text>
+        <Text style={styles.title}>{view.title}</Text>
         <View style={styles.priceRow}>
           <Text style={styles.price}>{view.price}</Text>
           <FavoriteButton flight={route.params.flight} />
@@ -67,23 +65,16 @@ function InfoRow({ label, value }: { label: string; value: string }) {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 16, gap: 12 },
-  header: { gap: 4 },
-  title: { fontSize: 18, fontWeight: '600', color: colors.text },
+  content: { padding: spacing.lg, gap: spacing.md },
+  header: { gap: spacing.xs },
+  title: { fontSize: fontSize.title, fontWeight: '600', color: colors.text },
   priceRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  price: { fontSize: 24, fontWeight: '700', color: colors.text },
-  section: {
-    backgroundColor: colors.surface,
-    borderRadius: 12,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    padding: 16,
-    gap: 4,
-  },
-  sectionTitle: { fontSize: 13, color: colors.textMuted, textTransform: 'uppercase' },
-  time: { fontSize: 22, fontWeight: '600', color: colors.text },
-  detail: { fontSize: 15, color: colors.text },
-  infoRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 4 },
-  infoLabel: { fontSize: 15, color: colors.textMuted },
-  infoValue: { fontSize: 15, color: colors.text, fontWeight: '500' },
+  price: { fontSize: fontSize.display, fontWeight: '700', color: colors.text },
+  section: { ...surface, padding: spacing.lg, gap: spacing.xs },
+  sectionTitle: { fontSize: fontSize.caption, color: colors.textMuted, textTransform: 'uppercase' },
+  time: { fontSize: fontSize.heading, fontWeight: '600', color: colors.text },
+  detail: { fontSize: fontSize.body, color: colors.text },
+  infoRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: spacing.xs },
+  infoLabel: { fontSize: fontSize.body, color: colors.textMuted },
+  infoValue: { fontSize: fontSize.body, color: colors.text, fontWeight: '500' },
 });

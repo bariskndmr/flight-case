@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
 import type { FlightSort } from '../../api/flight.types';
 import type { FlightFilters } from '../../api/flights';
-import { colors } from '../../components/theme';
+import { colors, fontSize, radius, spacing } from '../../components/theme';
 
 const SORT_OPTIONS: { value: FlightSort; label: string }[] = [
   { value: 'price', label: 'En düşük fiyat' },
@@ -60,27 +60,27 @@ export function FlightListControls({ filters, total, onChange }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 12,
-    paddingBottom: 8,
-    gap: 10,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.md,
+    paddingBottom: spacing.sm,
+    gap: spacing.md,
     backgroundColor: colors.surface,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: colors.border,
   },
   row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  label: { fontSize: 16, color: colors.text },
-  sortRow: { flexDirection: 'row', gap: 8 },
+  label: { fontSize: fontSize.body, color: colors.text },
+  sortRow: { flexDirection: 'row', gap: spacing.sm },
   sortOption: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 8,
-    borderRadius: 8,
+    paddingVertical: spacing.sm,
+    borderRadius: radius.control,
     borderWidth: 1,
     borderColor: colors.border,
   },
   sortOptionSelected: { borderColor: colors.accent, backgroundColor: colors.accentSoft },
-  sortText: { fontSize: 15, color: colors.text },
+  sortText: { fontSize: fontSize.body, color: colors.text },
   sortTextSelected: { color: colors.accent, fontWeight: '600' },
-  total: { fontSize: 14, color: colors.textMuted },
+  total: { fontSize: fontSize.caption, color: colors.textMuted },
 });

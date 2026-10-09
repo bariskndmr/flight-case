@@ -1,8 +1,8 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import type { FlightDto } from '../api/flight.types';
-import { useFavorites } from '../features/favorites/favoritesStore';
-import { colors } from './theme';
+import { selectIsFavorite, useFavorites } from '../features/favorites/favoritesStore';
+import { colors, fontSize, opacity, spacing } from './theme';
 
 type Props = { flight: FlightDto };
 
@@ -11,7 +11,7 @@ type Props = { flight: FlightDto };
  * so the list, detail and favorites screens always agree.
  */
 export function FavoriteButton({ flight }: Props) {
-  const isFavorite = useFavorites(state => flight.id in state.favorites);
+  const isFavorite = useFavorites(selectIsFavorite(flight.id));
   const hasHydrated = useFavorites(state => state.hasHydrated);
   const toggleFavorite = useFavorites(state => state.toggleFavorite);
 
@@ -38,8 +38,14 @@ export function FavoriteButton({ flight }: Props) {
 }
 
 const styles = StyleSheet.create({
-  button: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 12, paddingVertical: 8 },
-  pressed: { opacity: 0.6 },
-  disabled: { opacity: 0.4 },
-  text: { fontSize: 15, color: colors.accent, fontWeight: '600' },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  pressed: { opacity: opacity.pressed },
+  disabled: { opacity: opacity.disabled },
+  text: { fontSize: fontSize.body, color: colors.accent, fontWeight: '600' },
 });

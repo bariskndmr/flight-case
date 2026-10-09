@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
-import { FlatList, StyleSheet, View, type ListRenderItem } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import type { FlightDto } from '../../api/flight.types';
-import { FlightCard } from '../../components/FlightCard';
+import { FlightCardList } from '../../components/FlightCardList';
 import { ListFooter } from '../../components/ListFooter';
 import { StateView } from '../../components/StateView';
 import { colors } from '../../components/theme';
@@ -10,19 +10,14 @@ import { FlightListControls } from './FlightListControls';
 import { useFlights } from './useFlights';
 
 export function FlightListScreen({ navigation }: TabScreenProps<'Flights'>) {
-  const { state, changeFilters, loadMore, retryFirstPage, retryNextPage } = useFlights();
+  const { state, changeFilters, clearDirectFilter, loadMore, retryFirstPage, retryNextPage } = useFlights();
 
   const openDetail = useCallback((flight: FlightDto) => navigation.navigate('FlightDetail', { flight }), [navigation]);
 
-  const renderItem: ListRenderItem<FlightDto> = useCallback(
-    ({ item }) => <FlightCard flight={item} onPress={openDetail} />,
-    [openDetail],
-  );
-
   /**
    * Exactly one of: loading, error, empty, or the list.
-   * When the filter or sort changes the status goes back to 'loading', so the FlatList unmounts
-   * and the new result mounts a fresh list that starts at the top.
+   * When the filter or sort changes the status goes back to 'loading', so the list unmounts
+   * and the new result mounts a fresh one that starts at the top.
    */
   function renderBody() {
     if (state.status === 'loading') {
@@ -41,7 +36,7 @@ export function FlightListScreen({ navigation }: TabScreenProps<'Flights'>) {
           kind="message"
           message="Bu filtreyle uçuş bulunamadı."
           actionLabel="Filtreyi temizle"
-          onAction={() => changeFilters({ ...state.filters, onlyDirect: false })}
+          onAction={clearDirectFilter}
         />
       ) : (
         <StateView kind="message" message="Uçuş bulunamadı." />
@@ -49,13 +44,11 @@ export function FlightListScreen({ navigation }: TabScreenProps<'Flights'>) {
     }
 
     return (
-      <FlatList
-        data={state.items}
-        keyExtractor={item => item.id}
-        renderItem={renderItem}
+      <FlightCardList
+        flights={state.items}
+        onPressFlight={openDetail}
         onEndReached={loadMore}
         onEndReachedThreshold={0.5}
-        contentContainerStyle={styles.listContent}
         ListFooterComponent={
           <ListFooter loadingMore={state.loadingMore} loadMoreError={state.loadMoreError} onRetry={retryNextPage} />
         }
@@ -77,5 +70,4 @@ export function FlightListScreen({ navigation }: TabScreenProps<'Flights'>) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  listContent: { paddingVertical: 6 },
 });

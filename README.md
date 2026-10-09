@@ -81,7 +81,7 @@ src/api/                     flight.types.ts (case-kit'ten birebir), client.ts (
 src/domain/                  format.ts (saf biçimlendirme), flightView.ts (DTO → ekran modeli)
 src/features/flights/        flightsReducer.ts, useFlights.ts, FlightListScreen, FlightListControls, FlightDetailScreen
 src/features/favorites/      favoritesStore.ts, FavoritesScreen
-src/components/              FlightCard, FavoriteButton, StateView, ListFooter, theme
+src/components/              FlightCard, FlightCardList, FavoriteButton, ActionButton, StateView, ListFooter, theme (token'lar)
 src/navigation/              RootNavigator (stack: Tabs + FlightDetail), types
 ```
 

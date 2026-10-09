@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { FlightDto } from '../api/flight.types';
 import { toFlightView } from '../domain/flightView';
 import { FavoriteButton } from './FavoriteButton';
-import { colors } from './theme';
+import { colors, fontSize, opacity, spacing, surface } from './theme';
 
 type Props = {
   flight: FlightDto;
@@ -22,9 +22,7 @@ export function FlightCard({ flight, onPress }: Props) {
         style={({ pressed }) => [styles.body, pressed && styles.pressed]}
       >
         <View style={styles.row}>
-          <Text style={styles.airline}>
-            {view.airline} · {view.flightNumber}
-          </Text>
+          <Text style={styles.airline}>{view.title}</Text>
           <Text style={styles.price}>{view.price}</Text>
         </View>
 
@@ -61,30 +59,27 @@ export function FlightCard({ flight, onPress }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.surface,
-    borderRadius: 12,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    marginHorizontal: 16,
-    marginVertical: 6,
+    ...surface,
+    marginHorizontal: spacing.lg,
+    marginVertical: spacing.xs,
     overflow: 'hidden',
   },
-  body: { padding: 16, paddingBottom: 8, gap: 12 },
+  body: { padding: spacing.lg, paddingBottom: spacing.sm, gap: spacing.md },
   actions: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.border,
-    paddingHorizontal: 4,
+    paddingHorizontal: spacing.xs,
   },
-  pressed: { opacity: 0.6 },
+  pressed: { opacity: opacity.pressed },
   row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  airline: { fontSize: 14, color: colors.textMuted, flexShrink: 1 },
-  price: { fontSize: 17, fontWeight: '700', color: colors.text },
-  time: { fontSize: 20, fontWeight: '600', color: colors.text },
-  code: { fontSize: 13, color: colors.textMuted },
+  airline: { fontSize: fontSize.caption, color: colors.textMuted, flexShrink: 1 },
+  price: { fontSize: fontSize.title, fontWeight: '700', color: colors.text },
+  time: { fontSize: fontSize.heading, fontWeight: '600', color: colors.text },
+  code: { fontSize: fontSize.caption, color: colors.textMuted },
   middle: { alignItems: 'center' },
-  meta: { fontSize: 13, color: colors.textMuted },
+  meta: { fontSize: fontSize.caption, color: colors.textMuted },
   arrival: { alignItems: 'flex-end' },
-  nextDay: { fontSize: 13, fontWeight: '600', color: colors.accent },
+  nextDay: { fontSize: fontSize.caption, fontWeight: '600', color: colors.accent },
 });
