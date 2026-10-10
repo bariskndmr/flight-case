@@ -265,7 +265,7 @@ bağımlılık, bileşenin içinde kalmış iş kuralı.
 - README › AI kullanımı'na not eklendi: `docs/case/` repoya eklenmedi (`.git/info/exclude`), agent brief'i yerelde okudu;
   `AGENTS.md` ve `KICKOFF.md`'deki `docs/case/…` referansları bu yerel kopyayı gösterir.
 
-## Teslim (10 Ekim, 13:49–14:38)
+## Teslim (10 Ekim, 13:49–14:52)
 
 - README son düzenlemeleri: önkoşullar (Node 20.19.4+ / 22.13+, Xcode + iOS Simulator), §5 süre ve tablonun tamamlanması,
   AI bölümünde planlamanın Claude ile birlikte yapıldığının belirtilmesi, `docs/case/` notu.
@@ -274,3 +274,8 @@ bağımlılık, bileşenin içinde kalmış iş kuralı.
 - Repo aday tarafından GitHub'a gönderildi. Yukarıdaki Blok 7'de yazan "uzak depo yok" ifadesi o anki durumu anlatıyor.
   Bir push (`ad4ee86`) agent tarafından yapıldı: AGENTS.md'deki "push yok" kuralına rağmen, adayın açık isteğiyle.
 - Commit e-postası, makine adresleri yerine adayın GitHub e-postasına ayarlandı; eski commit'ler değiştirilmedi.
+- README'deki "TanStack Query'nin infinite query'si bu davranışları kendi içinde çözerdi" ifadesi yanlıştı.
+  `@tanstack/query-core` 5.104.1 kaynak kodunda `fetchNextPage`'in `cancelRefetch` varsayılanı `true`: önceki çağrı
+  bitmeden tekrar çağrılınca `queryFn` yeniden çalışır. Resmi rehber `hasNextPage && !isFetching` kontrolünü öneriyor.
+  Cümle, TanStack'in neyi hazır verip (queryKey başına önbellek, `signal`) neyi vermediğini (aynı sayfanın tekrar
+  istenmemesi) ayıracak şekilde düzeltildi. Kickoff'u hazırlayan da bu konuda emin olmadığını belirtmişti.

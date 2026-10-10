@@ -103,8 +103,11 @@ tek satırlık testlerle doğrulamayı sağlıyor.
 - İlk sayfanın durumu tek bir `status` alanında (`loading | success | error`). Yükleniyor, hata ve boş durumu bu yüzden
   aynı anda görünemiyor; ekranda tek bir `renderBody` dalı çalışıyor.
 - Sonraki sayfa için ayrı `loadingMore` / `loadMoreError` bayrakları var. Sonraki sayfa hatası listeyi silmiyor, footer'da "Tekrar dene" gösteriyor.
-- TanStack Query'nin infinite query'si bu davranışları kendi içinde çözerdi. Ama case tam olarak bu davranışları
-  ölçüyor, bu yüzden açık yazmayı tercih ettim. Redux ise tek bir ekran state'i için gereksiz tören olurdu.
+- TanStack Query'nin `useInfiniteQuery`'si sırasız yanıt (her `queryKey` ayrı önbellek) ve iptal (`signal`) tarafını
+  hazır verirdi. Ama aynı sayfanın iki kez istenmemesini yine elle korumak gerekirdi: `fetchNextPage` varsayılan
+  `cancelRefetch: true` ile, önceki çağrı bitmeden yeniden çağrılınca isteği tekrarlar; doküman
+  `hasNextPage && !isFetching` kontrolünü öneriyor. Case tam olarak bu davranışları ölçtüğü için açık yazmayı tercih
+  ettim. Redux ise tek bir ekran state'i için gereksiz tören olurdu.
 
 **Sırasız yanıta karşı iki katman.** Her istek artan bir `requestId` alıyor ve reducer yalnızca en son isteğin yanıtını
 kabul ediyor. Ayrıca yeni istek, bekleyen isteği `AbortController` ile iptal ediyor. İptal ağ trafiğini azaltıyor;
@@ -179,7 +182,7 @@ saatleri. Checkpoint satırları, simülatördeki manuel kontrollere ait.
 | 6 — P1 | 22:47–22:48 |
 | 7 — README ve son kontrol | 22:48–22:51 |
 | 9 Ekim — son gözden geçirme ve refactor | 22:51–23:08 |
-| 10 Ekim — README son düzenleme | 13:49–14:38 |
+| 10 Ekim — README son düzenleme | 13:49–14:52 |
 
 ## 6. P1'de ne yaptın, ne yapmadın
 
