@@ -265,7 +265,7 @@ bağımlılık, bileşenin içinde kalmış iş kuralı.
 - README › AI kullanımı'na not eklendi: `docs/case/` repoya eklenmedi (`.git/info/exclude`), agent brief'i yerelde okudu;
   `AGENTS.md` ve `KICKOFF.md`'deki `docs/case/…` referansları bu yerel kopyayı gösterir.
 
-## Teslim (10 Ekim, 13:49–14:35)
+## Teslim (10 Ekim, 13:49–14:38)
 
 - README son düzenlemeleri: önkoşullar (Node 20.19.4+ / 22.13+, Xcode + iOS Simulator), §5 süre ve tablonun tamamlanması,
   AI bölümünde planlamanın Claude ile birlikte yapıldığının belirtilmesi, `docs/case/` notu.

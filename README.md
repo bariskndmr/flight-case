@@ -179,7 +179,7 @@ saatleri. Checkpoint satırları, simülatördeki manuel kontrollere ait.
 | 6 — P1 | 22:47–22:48 |
 | 7 — README ve son kontrol | 22:48–22:51 |
 | 9 Ekim — son gözden geçirme ve refactor | 22:51–23:08 |
-| 10 Ekim — README son düzenleme | 13:49–14:10 |
+| 10 Ekim — README son düzenleme | 13:49–14:38 |
 
 ## 6. P1'de ne yaptın, ne yapmadın
 
