@@ -207,6 +207,9 @@ _Taslak; aday gözden geçirecek._
 - `AGENTS.md`: sabit teknik kararlar, yasaklar, davranış kuralları ve test listesi.
 - `docs/ai/KICKOFF.md`: blok planı ve checkpoint'ler.
 
+> Not: Brief metinleri (`docs/case/`) repoya eklenmedi; agent bunları yerelde okudu. `AGENTS.md` ve `KICKOFF.md`'deki
+> `docs/case/React-Native-Case.md` ve `docs/case/BASLA.md` referansları bu yerel kopyayı gösterir.
+
 AI bu çerçevede kodu, testleri ve dokümanları (`docs/ai/WORKLOG.md`, `docs/ai/CHECKLIST.md`, bu README) blok blok
 üretti. Her blok sonunda testler ve tip kontrolü geçtikten sonra commit attı.
 

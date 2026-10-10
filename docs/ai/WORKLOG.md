@@ -259,3 +259,8 @@ bağımlılık, bileşenin içinde kalmış iş kuralı.
 - Ara commit'leri ayrı worktree'de doğrularken önce `npm test` yerine `npx jest` çalıştırıldı; `TZ` ayarlanmadığı için
   `format.test.ts › runs these tests in a non-Istanbul time zone…` düştü. Kod hatası değil, komut hatası; ama nöbetçi
   testin işe yaradığının canlı örneği. `npm test` ile iki ara commit de 60/60.
+
+## Not — brief metinleri (kullanıcı isteği)
+
+- README › AI kullanımı'na not eklendi: `docs/case/` repoya eklenmedi (`.git/info/exclude`), agent brief'i yerelde okudu;
+  `AGENTS.md` ve `KICKOFF.md`'deki `docs/case/…` referansları bu yerel kopyayı gösterir.
