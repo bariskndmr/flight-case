@@ -158,9 +158,12 @@ açılamaz. Bu case'te deep link yok; gerekseydi `/flights/:id` ucuyla id'den y�
 
 ## 5. Harcadığın süre
 
-Süreç 2 oturum ile yaklaşık 3 saat kadar sürdü.
+Toplam yaklaşık 4 saat, 6 saatlik sınırın altında:
+- **Planlama, yaklaşık 1,5 saat:** Brief okuma ve plan ile agent talimatlarının (`AGENTS.md`, `docs/ai/KICKOFF.md`) hazırlanması.
+- **Agent oturumu ve son düzenlemeler, yaklaşık 2,5 saat:** İki oturum. Simülatördeki manuel kontroller dahil.
 
-WORKLOG'daki blok saatleri (`date` çıktısı). Checkpoint'ler arasındaki süreler simülatörde yapılan manuel kontrollere ait:
+Aşağıdaki tablo yalnızca agent oturumlarını kapsar; planlama dahil değil. Saatler WORKLOG'daki `date` çıktısı ve commit
+saatleri. Checkpoint satırları, simülatördeki manuel kontrollere ait.
 
 | Blok | Saat |
 |---|---|
@@ -175,6 +178,8 @@ WORKLOG'daki blok saatleri (`date` çıktısı). Checkpoint'ler arasındaki sür
 | 5 — Erişilebilirlik ve gözden geçirme | 22:46–22:47 |
 | 6 — P1 | 22:47–22:48 |
 | 7 — README ve son kontrol | 22:48–22:51 |
+| 9 Ekim — son gözden geçirme ve refactor | 22:51–23:08 |
+| 10 Ekim — README son düzenleme | 13:49–14:10 |
 
 ## 6. P1'de ne yaptın, ne yapmadın
 
@@ -206,7 +211,8 @@ WORKLOG'daki blok saatleri (`date` çıktısı). Checkpoint'ler arasındaki sür
 
 **Araç:** Claude Code (Claude Opus 5.5), VS Code eklentisi içinde.
 
-**Nasıl kullanıldı:** Kuralları ve teknik kararları aday belirledi:
+**Nasıl kullanıldı:** Plan ve agent talimatları (`AGENTS.md`, `KICKOFF.md`) Claude ile birlikte hazırlandı; kararları
+ben gözden geçirip onayladım.
 - `AGENTS.md`: sabit teknik kararlar, yasaklar, davranış kuralları ve test listesi.
 - `docs/ai/KICKOFF.md`: blok planı ve checkpoint'ler.
 
