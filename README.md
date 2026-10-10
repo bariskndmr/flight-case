@@ -19,6 +19,11 @@ cihazda saklayan React Native + TypeScript uygulaması. Veri `case-kit/` içinde
 
 ## 1. Kurulum ve çalıştırma komutları
 
+**Önkoşullar**
+- **Node 20.19.4+ ya da 22.13+** (React Native 0.86 ve Metro'nun alt sınırı; geliştirmede 22.20.0). Mock servis tek
+  başına Node 18+ ile de çalışır.
+- **Xcode ve iOS Simulator.** Expo Go'yu ayrıca kurmaya gerek yok: `npx expo start` sonrası `i` tuşu simülatöre kendisi kurar.
+
 ```bash
 npm ci
 
@@ -153,7 +158,7 @@ açılamaz. Bu case'te deep link yok; gerekseydi `/flights/:id` ucuyla id'den y�
 
 ## 5. Harcadığın süre
 
-_Aday dolduracak._
+Süreç 2 oturum ile yaklaşık 3 saat kadar sürdü.
 
 WORKLOG'daki blok saatleri (`date` çıktısı). Checkpoint'ler arasındaki süreler simülatörde yapılan manuel kontrollere ait:
 
@@ -198,8 +203,6 @@ WORKLOG'daki blok saatleri (`date` çıktısı). Checkpoint'ler arasındaki sür
   ayrıntı yalnız dev log'unda.
 
 ## AI kullanımı
-
-_Taslak; aday gözden geçirecek._
 
 **Araç:** Claude Code (Claude Opus 5.5), VS Code eklentisi içinde.
 
