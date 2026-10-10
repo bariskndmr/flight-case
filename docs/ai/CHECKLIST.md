@@ -68,7 +68,7 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 |---|---|---|---|
 | 2.7.1 | Filtre/sıralama parametreleri **veya** filtre değişiminde sayfalama sıfırlama | `flights.test.ts` (parametreler) **ve** `flightsReducer.test.ts` (sıfırlama) | ✅ |
 | 2.7.2 | Favori ekle/çıkar + depolamadan geri yükleme | `favoritesStore.test.ts` (5 test: yazma, partialize, geri yükleme, hydration koruması, sıra) | ✅ |
-| 2.7.x | Snapshot dışı, davranış odaklı | Snapshot testi yok; 7 suite davranış testi | ✅ |
+| 2.7.x | Snapshot dışı, davranış odaklı | Snapshot testi yok; 9 suite, 60 davranış testi | ✅ |
 
 ## P0 — 5 Teknik beklentiler
 
@@ -84,8 +84,8 @@ Kanıt sütunu: otomatik test adı (`dosya › test`) ya da manuel adım (CHECKP
 
 | # | Madde | Kanıt | Durum |
 |---|---|---|---|
-| 7.1–7.7 | Kurulum/çalıştırma, platform, test komutu, mimari gerekçe, süre, P1 durumu, bilinen eksikler | README §1–§7, brief sırası ve başlıklarıyla. §5 süre adayca doldurulacak | 🟡 |
-| 7.AI | AI kullanımı ve doğrulama yöntemi | README › AI kullanımı (taslak, aday gözden geçirecek) | 🟡 |
+| 7.1–7.7 | Kurulum/çalıştırma, platform, test komutu, mimari gerekçe, süre, P1 durumu, bilinen eksikler | README §1–§7, brief sırası ve başlıklarıyla; §5 süre aday tarafından dolduruldu | ✅ |
+| 7.AI | AI kullanımı ve doğrulama yöntemi | README › AI kullanımı (aday gözden geçirip onayladı) | ✅ |
 
 ## P1
 

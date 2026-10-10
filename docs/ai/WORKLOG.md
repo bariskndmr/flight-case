@@ -2,7 +2,7 @@
 
 Araç: Claude Code (Opus 5.5), VS Code eklentisi. Saatler `date '+%H:%M'` ile alındı.
 
-> Not: Bu çalışma bir deneme turu. Commit atılıyor, push yok.
+> Not: Geliştirme yerel git ile yapıldı; repo, iş bitince aday tarafından GitHub'a gönderildi.
 
 ## Blok 0 — Okuma ve sözleşme doğrulama (20:52–21:04)
 
@@ -264,3 +264,13 @@ bağımlılık, bileşenin içinde kalmış iş kuralı.
 
 - README › AI kullanımı'na not eklendi: `docs/case/` repoya eklenmedi (`.git/info/exclude`), agent brief'i yerelde okudu;
   `AGENTS.md` ve `KICKOFF.md`'deki `docs/case/…` referansları bu yerel kopyayı gösterir.
+
+## Teslim (10 Ekim, 13:49–14:35)
+
+- README son düzenlemeleri: önkoşullar (Node 20.19.4+ / 22.13+, Xcode + iOS Simulator), §5 süre ve tablonun tamamlanması,
+  AI bölümünde planlamanın Claude ile birlikte yapıldığının belirtilmesi, `docs/case/` notu.
+- Markdown son kontrolü: eskimiş ifadeler düzeltildi. Bu dosyanın başındaki "deneme turu" notu, CHECKLIST'te README
+  satırlarının 🟡 kalması ve "7 suite" (doğrusu 9).
+- Repo aday tarafından GitHub'a gönderildi. Yukarıdaki Blok 7'de yazan "uzak depo yok" ifadesi o anki durumu anlatıyor.
+  Bir push (`ad4ee86`) agent tarafından yapıldı: AGENTS.md'deki "push yok" kuralına rağmen, adayın açık isteğiyle.
+- Commit e-postası, makine adresleri yerine adayın GitHub e-postasına ayarlandı; eski commit'ler değiştirilmedi.
